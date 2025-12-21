@@ -40,8 +40,8 @@ class TSDCore:
         
         # Logic rules for implications
         self.implications = {
-            ('ก', '⊕', 'ข'): 'ค',
-            ('ค', '⊗', '๒'): 'ง',
+            ('⊕', 'ก', 'ข'): 'ค',
+            ('⊗', 'ค', '๒'): 'ง',
             'ง': 'พิสูจน์',
             'พิสูจน์': 'ผ่าน',
         }
@@ -83,12 +83,10 @@ class TSDCore:
     def evaluate_implication(self, expr):
         """Evaluate an implication based on defined rules"""
         if isinstance(expr, tuple) and len(expr) == 3:
-            op, left, right = expr
-            
-            # Check direct implications
-            key = (left, op, right)
-            if key in self.implications:
-                return self.implications[key]
+            # expr is in format (operator, left, right)
+            # Check if this matches any implication rule
+            if expr in self.implications:
+                return self.implications[expr]
         
         # Check single element implications
         if expr in self.implications:
