@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "content", "confidence"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["knowledge"]
+    },
+    "content": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 5000
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    }
+  }
+}
