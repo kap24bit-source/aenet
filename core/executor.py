@@ -1,7 +1,9 @@
+from typing import Optional
+
 from kfast_system import compile_and_run, KernelRuntime, CommandStore
 
 # Shared kernel for all execution
-_kernel: KernelRuntime = None
+_kernel: Optional[KernelRuntime] = None
 
 
 def get_kernel() -> KernelRuntime:

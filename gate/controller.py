@@ -3,7 +3,7 @@ from gate.llm.client import ask_llm
 from gate.sanitizer.clean import sanitize
 from gate.intake.ingest import ingest
 from gate.validator import validate_llm_output, LLMValidationError
-from core.executor import execute, get_kernel
+from core.executor import execute
 from knowledge.memory import init_db, save_command, load_command, list_commands
 
 
@@ -14,7 +14,7 @@ def gate_entry():
     1. Initialize database (knowledge + KFAST command store)
     2. Read user input
     3. If input is a command (starts with /), handle it
-    4. Otherwise, process through gate pipeline (policy -> LLM -> sanitize -> ingest)
+    4. Otherwise, process through gate pipeline (policy -> LLM -> validate -> sanitize -> ingest)
     5. Execute through the unified executor (supports plain text and KFAST code)
     """
     init_db()
@@ -35,8 +35,16 @@ def gate_entry():
     if allow_topic(topic):
         raw = ask_llm(user_input)
         if raw:
-            clean = sanitize(raw)
-            ingest(clean)
+            try:
+                # Validate LLM output against schema
+                validated = validate_llm_output(raw)
+                content = validated.get("content", "")
+                if content:
+                    clean = sanitize(content)
+                    ingest(clean)
+            except LLMValidationError:
+                # Invalid LLM response, skip ingestion
+                pass
 
     execute(user_input)
 
