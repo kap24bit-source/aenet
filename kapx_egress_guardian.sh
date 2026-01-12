@@ -44,6 +44,9 @@ github.com
 EOF
 
   echo "[5/6] Setting squid"
+  if [ -f /etc/squid/squid.conf ]; then
+    cp /etc/squid/squid.conf /etc/squid/squid.conf.bak
+  fi
   cat > /etc/squid/squid.conf <<EOF
 http_port 3128
 acl allowed dstdomain "/etc/kapx-egress/allowlist_domains.txt"
@@ -57,7 +60,9 @@ EOF
   systemctl enable squid
 
   echo "[6/6] Creating no-egress namespace"
-  ip netns add kapx_core || true
+  if ! ip netns list | grep -q "^kapx_core$"; then
+    ip netns add kapx_core
+  fi
   ip netns exec kapx_core ip link set lo up
 
   echo "INSTALL COMPLETE"
