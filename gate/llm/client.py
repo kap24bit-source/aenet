@@ -11,3 +11,17 @@ Follow this schema strictly:
 
 If you cannot answer, still return valid JSON with empty content.
 """
+
+
+def ask_llm(prompt: str) -> str:
+    """
+    Placeholder for LLM client function
+    
+    Args:
+        prompt: User prompt
+        
+    Returns:
+        LLM response (stub returns empty JSON)
+    """
+    return '{"type": "knowledge", "content": "", "confidence": 0.0}'
+
