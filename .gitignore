@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# DLP databases and quarantine
+.kagent_dlp_audit.db
+.kagent_dlp_quarantine/
+.kagent_gate_ai.db
+
+# OS
+.DS_Store
+Thumbs.db
