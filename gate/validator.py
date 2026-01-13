@@ -3,9 +3,9 @@ from jsonschema import validate, ValidationError
 
 from pathlib import Path
 
-SCHEMA = json.loads(
-    Path(__file__).with_name("llm_schema.json").read_text(encoding="utf-8")
-)
+# Schema is in the llm subdirectory
+_SCHEMA_PATH = Path(__file__).parent / "llm" / "llm_schema.json"
+SCHEMA = json.loads(_SCHEMA_PATH.read_text(encoding="utf-8"))
 
 class LLMValidationError(Exception):
     pass
