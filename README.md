@@ -6,3 +6,6 @@
 
 Run:
   python main.py
+
+Data egress guard:
+  sudo ./kapx_egress_guardian.sh install|core-shell|status
