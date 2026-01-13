@@ -1,0 +1,80 @@
+{
+  "enabled": true,
+  "quarantine_path": "~/.kagent_dlp_quarantine",
+  "severity_actions": {
+    "CRITICAL": "BLOCK",
+    "HIGH": "QUARANTINE",
+    "MEDIUM": "WARN",
+    "LOW": "LOG"
+  },
+  "patterns": [
+    {
+      "type": "aws_access_key",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "description": "AWS Access Key detected - blocks processing"
+    },
+    {
+      "type": "aws_secret_key",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "description": "AWS Secret Key detected - blocks processing"
+    },
+    {
+      "type": "private_key_rsa",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "description": "RSA Private Key detected - blocks processing"
+    },
+    {
+      "type": "github_token",
+      "severity": "HIGH",
+      "action": "QUARANTINE",
+      "description": "GitHub Token detected - quarantined"
+    },
+    {
+      "type": "generic_api_key",
+      "severity": "HIGH",
+      "action": "QUARANTINE",
+      "description": "Generic API Key detected - quarantined"
+    },
+    {
+      "type": "password",
+      "severity": "HIGH",
+      "action": "QUARANTINE",
+      "description": "Password detected - quarantined"
+    },
+    {
+      "type": "thai_citizen_id",
+      "severity": "MEDIUM",
+      "action": "WARN",
+      "description": "Thai Citizen ID detected - warning issued"
+    },
+    {
+      "type": "credit_card",
+      "severity": "MEDIUM",
+      "action": "WARN",
+      "description": "Credit Card Number detected - warning issued"
+    },
+    {
+      "type": "email",
+      "severity": "LOW",
+      "action": "LOG",
+      "description": "Email address detected - logged only"
+    },
+    {
+      "type": "phone_thai",
+      "severity": "LOW",
+      "action": "LOG",
+      "description": "Thai phone number detected - logged only"
+    }
+  ],
+  "custom_patterns": {
+    "comment": "Add your custom regex patterns here",
+    "example": {
+      "pattern": "custom_regex_here",
+      "severity": "MEDIUM",
+      "action": "WARN"
+    }
+  }
+}
